@@ -19,16 +19,19 @@
         <div id="user-cards" class="row">
             <!-- impresión de cards de usuarios -->
         </div>     
-        <div class="container">
+        <div class="container text-bg-info ">
             <div>
                 <h1>User Data</h1>
-                <button class="btn btn-info position-relative py-1 px-3 text-bg-secondary border border-secondary rounded-pill"  id="obtenerDatosBtn">Obtener Datos</button>
-            
+                <div>
+                    <div><h3 id="mensaje"></h3></div>
+                    <button class="btn btn-info position-relative py-3 px-3 m-2 text-bg-primary  border border-secondary"  id="obtenerDatosBtn">Obtener Datos</button>
+                    <button id="botonCarga" class="btn btn-primary visually-hidden" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm " aria-hidden="true"></span>
+                        <span role="status ">Cargando...</span>
+                    </button>
+                </div>
             <div id="userData"></div>
-            <button id="botonCarga" class="btn btn-primary visually-hidden" type="button" disabled>
-                <span class="spinner-border spinner-border-sm " aria-hidden="true"></span>
-                <span role="status ">Cargando...</span>
-              </button>
+           
           </div>  
         </div>
           
@@ -50,7 +53,6 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
-    <script type="module" src="./assets/javascript/getUsers.js"></script>
     
     <script type="module" src="./assets/javaScript/getCards.js"></script>  
    

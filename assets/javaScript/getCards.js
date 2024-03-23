@@ -1,6 +1,7 @@
 // Función para mostrar el botón de carga
 function aparecerBotonCarga() {
   document.getElementById("botonCarga").classList.remove('visually-hidden');
+
 }
 
 // Función para ocultar el botón de carga
@@ -39,32 +40,20 @@ function mostrarDatosEnDOM(data) {
     const userDiv = document.createElement('div');
     userDiv.classList.add('user');
     userDiv.innerHTML = `
-      <img src="${user.avatar}" alt="${user.first_name} ${user.last_name}">
-      <p>${user.first_name} ${user.last_name}</p>
-      <p>Email: ${user.email}</p>
+    <tr>
+    <td><img src="${user.avatar}"</td>
+    <th scope="row">${user.id}</th>
+    <td>${user.first_name}</td>
+    <td>${user.last_name}</td>
+    <td>${user.email}</td>
+  </tr>
     `;
     userDataDiv.appendChild(userDiv);
   });
 }
 
 // Función para verificar si han pasado más de 1 minuto desde la última solicitud
-function verificarTiempoTranscurrido() {
-  const lastRequestTime = parseInt(localStorage.getItem('lastRequestTime'));
-  if (lastRequestTime) {
-    const currentTime = new Date().getTime();
-    const elapsedTime = currentTime - lastRequestTime;
-    // Si han pasado menos de 1 minuto, leer datos del almacenamiento local
-    if (elapsedTime < 60000) {
-      const userData = JSON.parse(localStorage.getItem('userData'));
-      if (userData) {
-        mostrarDatosEnDOM(userData);
-        return;
-      }
-    }
-  }
-  // Si han pasado más de 1 minuto o no hay datos en el almacenamiento local, hacer una nueva solicitud al servidor
-  obtenerDatosDelServidor();
-}
+
 
 // Evento del botón que despliega la información
 document.addEventListener("DOMContentLoaded", function() {
@@ -76,3 +65,31 @@ document.addEventListener("DOMContentLoaded", function() {
     verificarTiempoTranscurrido();
   });
 });
+
+
+
+// Función para mostrar un mensaje en el DOM
+function mostrarMensaje(mensaje) {
+  const mensajeDiv = document.getElementById('mensaje');
+  mensajeDiv.textContent = mensaje;
+}
+
+function verificarTiempoTranscurrido() {
+  const lastRequestTime = parseInt(localStorage.getItem('lastRequestTime'));
+  if (lastRequestTime) {
+    const currentTime = new Date().getTime();
+    const elapsedTime = currentTime - lastRequestTime;
+    // Si han pasado menos de 1 minuto, mostrar un mensaje en el DOM
+    if (elapsedTime < 60000) {
+      let tiempoRestante = Math.floor((60000 - elapsedTime)/1000)
+      mostrarMensaje(`Se han hecho la solicitud recien, esperar ${tiempoRestante} segundos`);
+      const userData = JSON.parse(localStorage.getItem('userData'));
+      if (userData) {
+        mostrarDatosEnDOM(userData);
+        return;
+      }
+    }
+  }
+  // Si han pasado más de 1 minuto o no hay datos en el almacenamiento local, hacer una nueva solicitud al servidor
+  obtenerDatosDelServidor();
+}
